@@ -1,0 +1,118 @@
+CREATE SCHEMA HospiPet;
+
+create user 'test1'@'%' identified by 'test1';
+
+grant all privileges on HospiPet.* to 'test1'@'%';
+flush privileges;
+
+USE HospiPet;
+
+CREATE TABLE categoria (
+  id_categoria INT PRIMARY KEY AUTO_INCREMENT,
+  descripcion VARCHAR(50) NOT NULL,
+  ruta_imagen VARCHAR(1024),
+  activo BOOL
+  )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE TABLE producto (
+  id_producto INT PRIMARY KEY AUTO_INCREMENT,
+  id_categoria INT NOT NULL,
+  descripcion VARCHAR(60) NOT NULL,  
+  detalle VARCHAR(1600) NOT NULL, 
+  precio DOUBLE,
+  existencias INT,  
+  ruta_imagen VARCHAR(1024),
+  activo BOOL,
+  FOREIGN KEY fk_producto_caregoria (id_categoria) REFERENCES categoria(id_categoria)  
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE TABLE usuario (
+  id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(20) NOT NULL,
+  password VARCHAR(512) NOT NULL,
+  nombre VARCHAR(20) NOT NULL,
+  apellidos VARCHAR(30) NOT NULL,
+  correo VARCHAR(75) NULL,
+  telefono VARCHAR(15) NULL,
+  ruta_imagen VARCHAR(1024),
+  activo BOOLEAN
+  )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+INSERT INTO categoria (id_categoria,descripcion,ruta_imagen,activo) VALUES 
+('1','Arnés', 'https://www.suplidoraroyal.com/11438-large_default/arnes-correa-diversos-colores.jpg',   true), 
+('2','Hoodie',  'https://www.latiendadefrida.com/cdn/shop/products/f997e_neonheatherblue_8ee83779-b1be-4035-af7c-4517a948b968_1035x1380.jpg?v=1619250379',   true),
+('3','Bandana','https://acdn.mitiendanube.com/stores/858/059/products/bandana-para-mascotas-perro-gato-animales-veterinaria-petshop-puppis-pandarojodeco-bmg057-2422676f2f65cfb1b117223746208132-1024-1024.webp',true);
+
+INSERT INTO producto (id_producto,id_categoria,descripcion,detalle,precio,existencias,ruta_imagen,activo) VALUES
+(1,1,'Arnés Ajustable - Sassy Wold Oh My Melons','Dos anillos en D 
+\nUn anillo en D en la parte posterior para sujetar la correa
+\nOtro anillo en D frontal versátil que se puede usar como anti-tirones o para plaquitas
+\nTejido de neopreno estampado personalizado con malla transpirable',17000.00,20,'https://petspotstore.com/cdn/shop/products/MELONS_0015_Capa1_1024x1024@2x.jpg?v=1649481025',true),
+(2,1,'Arnés Ajustable - Sassy Wold Oh My Melons New Version','Dos anillos en D 
+\nUn anillo en D en la parte posterior para sujetar la correa
+\nOtro anillo en D frontal versátil que se puede usar como anti-tirones o para plaquitas
+\nTejido de neopreno estampado personalizado con malla transpirable',23000.00,15,'https://petspotstore.com/cdn/shop/products/GMA-WATERMELON_2_1_1024x1024@2x.jpg?v=1630895760',true),
+(3,1,'Arnés - Beast & Buckle Reversible Cupcake','Totalmente reversible: Garantizamos seguridad y comodidad usando ambos lados.
+\nAjuste perfecto: Están diseñados para adaptarse a cualquier perro que coincida con nuestra guía de tallas.
+\nCalidad premium: Fabricados con neopreno de alta calidad y malla transpirable, con hebillas seguras y un resistente anillo en D que admite todas las correas estándar.',23000.00,15,'https://petspotstore.com/cdn/shop/products/f267c4f9-ac03-418b-8cdc-764754bf7c5e_1024x1024@2x.jpg?v=1631696357',true),
+(4,1,'Arnés - Beast & Buckle Reversible Ladybug','Totalmente reversible: Garantizamos seguridad y comodidad usando ambos lados.
+\nAjuste perfecto: Están diseñados para adaptarse a cualquier perro que coincida con nuestra guía de tallas.
+\nCalidad premium: Fabricados con neopreno de alta calidad y malla transpirable, con hebillas seguras y un resistente anillo en D que admite todas las correas estándar.',23000.00,10,'https://petspotstore.com/cdn/shop/products/ladybug-reversible-dog-harness-492576_2000x_c271ecb0-9d40-4420-9fcc-fc2c7535ad4e_1024x1024@2x.jpg?v=1631696323',true),
+(5,1,'Arnés - Woof Reversible Sugar Rush','Totalmente reversible: Garantizamos seguridad y comodidad usando ambos lados.
+\nAjuste perfecto: Están diseñados para adaptarse a cualquier perro que coincida con nuestra guía de tallas.
+\nCalidad premium: Fabricados con neopreno de alta calidad y malla transpirable, con hebillas seguras y un resistente anillo en D que admite todas las correas estándar.',18000.00,8,'https://petspotstore.com/cdn/shop/products/montaje-rosadito-2_1024x1024@2x.png?v=1605061170',true),
+(6,1,'Arnés - Woof Reversible Look at the Stars','Totalmente reversible: Garantizamos seguridad y comodidad usando ambos lados.
+\nAjuste perfecto: Están diseñados para adaptarse a cualquier perro que coincida con nuestra guía de tallas.
+\nCalidad premium: Fabricados con neopreno de alta calidad y malla transpirable, con hebillas seguras y un resistente anillo en D que admite todas las correas estándar.',18000.00,10,'https://petspotstore.com/cdn/shop/products/WhatsAppImage2021-05-09at13.02.05_1024x1024@2x.jpg?v=1620587474',true),
+(7,1,'Arnés - Beast & Buckle Reversible Baseball','Totalmente reversible: Garantizamos seguridad y comodidad usando ambos lados.
+\nAjuste perfecto: Están diseñados para adaptarse a cualquier perro que coincida con nuestra guía de tallas.
+\nCalidad premium: Fabricados con neopreno de alta calidad y malla transpirable, con hebillas seguras y un resistente anillo en D que admite todas las correas estándar.',23000.00,15,'https://petspotstore.com/cdn/shop/products/baseball_harness_1080x_fc35709c-916d-4ff2-9039-548c9a937886_1024x1024@2x.jpg?v=1611293948',true),
+(8,1,'Arnés - Canada Pooch No-Pull Plaid','Sistema “No-pull” con D-ring en el frente y otro en la parte de atrás, en el lomo.
+\nAgarrador de mano para asistencia y para cinturón de seguridad.
+\nResistente al agua.
+\nAjustables del cuello y pecho.',25000.00,8,'https://petspotstore.com/cdn/shop/products/Plaid_0003_Capa1_1024x1024@2x.jpg?v=1596164087',true),
+(9,1,'Arnés - Canada Pooch No-Pull Pink Plaid','Sistema “No-pull” con D-ring en el frente y otro en la parte de atrás, en el lomo.
+\nAgarrador de mano para asistencia y para cinturón de seguridad.
+\nResistente al agua.
+\nAjustables del cuello y pecho.',25000.00,6,'https://petspotstore.com/cdn/shop/products/PinkPlaid_0000_Capa4_1024x1024@2x.jpg?v=1596163710',true),
+(10,1,'Arnés - Pawsome Paws No-Pull Tough Trails - Country Burgundy','Mango para entrenamiento y control adicional. (perfecto para caminatas)
+\nCorreas para el cuello y el pecho totalmente ajustables, ¡encuentra el ajuste perfecto para tu perro!
+\nRibete reflectante para mayor visibilidad en la oscuridad.
+\nHebilla en el cuello que tu perro no tenga que introducir su cabeza en el arnés.
+\nAnillos en D delanteros y traseros.
+\nForrado con mesh de aire transpirable para mayor comodidad y secado rápido.',40000.00,8,'https://petspotstore.com/cdn/shop/products/PhotoRoom_20230110_1509592_1024x1024_2x_17f3ec16-3e88-46db-b4f4-56e80b9b50f3_1024x1024@2x.webp?v=1677467316',true),
+(11,1,'Arnés - Canada Pooch No-Pull Pink','Sistema “No-pull” con D-ring en el frente y otro en la parte de atrás, en el lomo.
+\nAgarrador de mano para asistencia y para cinturón de seguridad.
+\nResistente al agua.
+\nAjustables del cuello y pecho.',25000.00,8,'https://petspotstore.com/cdn/shop/products/canada-pooch-pink-everything-dog-harness-off-figure_520x_5c0a6fc6-31b8-4855-b821-e76e968df633_1024x1024@2x.jpg?v=1603265869',true),
+(12,2,'Bandana - Frenchie Cooling Ducky','Remoje ligeramente el pañuelo en agua fría y luego escúrralo. La tela de malla ligera y refrescante, permanecerá fría mientras este mojada!
+\nEstas bandanas también son la manera perfecta de hacer una declaración de moda, escoje la que mas vaya con su personalidad.
+\nÁtalo alrededor de tu amigo peludo y deja que los cumplidos lleguen
+\nImpresión única, colores vibrantes y diseños divertidos.',8000.00,0,'https://petspotstore.com/cdn/shop/products/Frenchie-Cooling-Bandana-Ducky_1024x1024_5563f5c5-f986-4081-b059-9231be83fb0a_1024x1024@2x.jpg?v=1600035322',false),
+(13,2,'Bandana - Frenchie Cooling Galaxy','Remoje ligeramente el pañuelo en agua fría y luego escúrralo. La tela de malla ligera y refrescante, permanecerá fría mientras este mojada!
+\nEstas bandanas también son la manera perfecta de hacer una declaración de moda, escoje la que mas vaya con su personalidad.
+\nÁtalo alrededor de tu amigo peludo y deja que los cumplidos lleguen
+\nImpresión única, colores vibrantes y diseños divertidos.',8000.00,4,'https://petspotstore.com/cdn/shop/products/galaxybandana_2_1024x1024@2x.png?v=1607315238',true),
+(14,2,'Bandana - Frenchie Cooling When Pigs Fly','Remoje ligeramente el pañuelo en agua fría y luego escúrralo. La tela de malla ligera y refrescante, permanecerá fría mientras este mojada!
+\nEstas bandanas también son la manera perfecta de hacer una declaración de moda, escoje la que mas vaya con su personalidad.
+\nÁtalo alrededor de tu amigo peludo y deja que los cumplidos lleguen
+\nImpresión única, colores vibrantes y diseños divertidos.',8000.00,7,'https://petspotstore.com/cdn/shop/products/pigsflybandana_2_1024x1024@2x.png?v=1607315177',true),
+(15,2,'Bandana - Frenchie Cooling Ice Cream','Remoje ligeramente el pañuelo en agua fría y luego escúrralo. La tela de malla ligera y refrescante, permanecerá fría mientras este mojada!
+\nEstas bandanas también son la manera perfecta de hacer una declaración de moda, escoje la que mas vaya con su personalidad.
+\nÁtalo alrededor de tu amigo peludo y deja que los cumplidos lleguen
+\nImpresión única, colores vibrantes y diseños divertidos.',8000.00,0,'https://petspotstore.com/cdn/shop/products/Frenchie-Bulldog-Ice-Cream-Cooling-Bandana_1024x1024@2x.jpg?v=1600035690',false),
+(16,3,'Hoodie - Beast & Buckle Dinosaur','Compatible para utilizar con la mayoría de arneses ya que tiene una ranura en la parte posterior para enganchar una correa al anillo en D.
+\nDiseñado para la comodidad: el cierre frontal hace que la sudadera con capucha sea fácil de poner y el material esponjoso hace que parezca que llevas puesta una nube.
+\nCalidad superior: fabricada con materiales de alta calidad que son suaves y duraderos.',27000.00,0,'https://petspotstore.com/cdn/shop/products/Dinosaur_Hoodie_-_Back_2000x_687f893b-0258-4d9f-8f66-e082930e0936_1024x1024@2x.jpg?v=1610947021',false),
+(17,3,'Hoodie - Beast & Buckle Cupcakes','Compatible para utilizar con la mayoría de arneses ya que tiene una ranura en la parte posterior para enganchar una correa al anillo en D.
+\nDiseñado para la comodidad: el cierre frontal hace que la sudadera con capucha sea fácil de poner y el material esponjoso hace que parezca que llevas puesta una nube.
+\nCalidad superior: fabricada con materiales de alta calidad que son suaves y duraderos.',27000.00,3,'https://petspotstore.com/cdn/shop/products/cupcake-dog-hoodie-379833_2000x_06a4244a-bd2b-43d1-a94e-d41e0bbc75e6_1024x1024@2x.jpg?v=1610946770',true),
+(18,3,'Hoodie - Beast & Buckle Pizza','Compatible para utilizar con la mayoría de arneses ya que tiene una ranura en la parte posterior para enganchar una correa al anillo en D.
+\nDiseñado para la comodidad: el cierre frontal hace que la sudadera con capucha sea fácil de poner y el material esponjoso hace que parezca que llevas puesta una nube.
+\nCalidad superior: fabricada con materiales de alta calidad que son suaves y duraderos.',27000.00,9,'https://petspotstore.com/cdn/shop/products/pizza-dog-hoodie-666406_2000x_698bc4e9-3d1b-4d76-bdf8-ad4d10b3eb48_1024x1024@2x.jpg?v=1610946927',true);
